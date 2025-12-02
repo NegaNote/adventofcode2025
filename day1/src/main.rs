@@ -1,8 +1,7 @@
-use std::fmt::{Display, Formatter};
+use anyhow::Result;
+use clap::Parser;
 use std::fs::File;
 use std::io::Read;
-use clap::Parser;
-use anyhow::Result;
 
 #[derive(Parser, Debug, Clone)]
 #[command(about, long_about = None)]
@@ -17,15 +16,6 @@ enum RotationDirection {
     Right,
 }
 
-impl Display for RotationDirection {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            RotationDirection::Left => write!(f, "left"),
-            RotationDirection::Right => write!(f, "right"),
-        }
-    }
-}
-
 #[derive(Debug, Clone)]
 struct Rotation {
     direction: RotationDirection,
@@ -35,12 +25,6 @@ struct Rotation {
 impl Rotation {
     fn new(direction: RotationDirection, amount: i32) -> Self {
         Self { direction, amount }
-    }
-}
-
-impl Display for Rotation {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "Direction: {}, Amount: {}", self.direction, self.amount)
     }
 }
 
