@@ -62,9 +62,9 @@ fn main() -> Result<()> {
             RotationDirection::Left => {
                 let total = dial_pos - rotation.amount;
                 if total <= 0 {
-                    times_zero_reached_part2 += (total / 100).abs() + 1;
-                    if dial_pos == 0 {
-                        times_zero_reached_part2 -= 1;
+                    times_zero_reached_part2 += (total / 100).abs();
+                    if dial_pos != 0 {
+                        times_zero_reached_part2 += 1;
                     }
                 }
                 dial_pos = (dial_pos - rotation.amount).rem_euclid(100);
