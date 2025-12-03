@@ -66,20 +66,12 @@ fn main() -> Result<()> {
             }
             let max_len_to_check = string.len() / 2;
             for len in 1..=max_len_to_check {
-                if let Some(reduced) = string.chars().collect::<Vec<_>>().chunks(len)
-                    .map(|chunk| chunk.into_iter()
-                        .fold("".to_string(), |acc, x| acc + &x.to_string()))
-                    .reduce(|acc, x| {
-                    if acc == x {
-                        acc
-                    } else {
-                        "".to_string()
-                    }
-                }) {
-                    if reduced != "".to_string() {
-                        part2_running_sum += id;
-                        break;
-                    }
+                let chars = string.chars().collect::<Vec<_>>();
+                let mut chunks = chars.chunks(len);
+                let first = chunks.clone().take(1).collect::<Vec<_>>()[0];
+                if chunks.all(|c| c == first) {
+                    part2_running_sum += id;
+                    break;
                 }
             }
         }
